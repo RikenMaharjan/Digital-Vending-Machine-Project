@@ -1,0 +1,358 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="middle-right">
+                        <div class="paratop"><p>Dashboard{{categories.value}}</p></div>
+                        <div class="nested-right">
+                            <div class="box1">
+                             <b><p>VEND1 SOLD ITEMS
+                             <br/>
+                                {{c}}
+                            </p></b>
+                            </div>
+                            <div class="box2">
+                             <b><p>VEND1 INCOME
+                             <br/>
+                            {{d}}
+                            </p></b>
+                            </div>
+                            <div class="box3">
+                            <b><p>VEND2 SOLD ITEMS
+                             <br/>
+                                {{e}}
+                            </p></b>
+                            </div>
+                            <div class="box4">
+                            <b><p>VEND2 INCOME
+                             <br/>
+                                {{f}}
+                            </p></b>
+                            </div>
+                            <div class="box5">
+                            <b><p>TOTAL SOLD ITEMS
+                             <br/>
+                                {{g}}
+                            </p></b></div>
+                            <div class="box6">
+                            <b><p>TOTAL INCOME
+                             <br/>
+                                {{h}}
+                            </p></b>
+                            </div>
+                            <div class="box8">
+                                <div class="container1" >
+                                  <script>
+                                    var endpoint='{% url 'apidata'%}'
+                                    var label=[]
+                                    var defaultdata = []
+                                    var line1=[]
+                                    $.ajax({
+                                        method: "GET",
+                                        url: endpoint,
+                                        success: function(data){
+
+                                        function color() {
+                                                    var letters = '0123456789ABCDEF'.split('');
+                                                    var color = '#';
+                                                    for (var i = 0; i < 6; i++ ) {
+                                                    color += letters[Math.floor(Math.random() * 16)];
+                                                    }
+                                                    return color;
+                                                    }
+                                        
+                                        label1 = data.labels1
+                                        line1  = data.line1
+                                        defaultdata1 = data.default1
+                                        var ctx = document.getElementById('myChart1').getContext('2d');
+                                        var myChart = new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: label1,
+                                                datasets: [{
+                                                    
+                                                    label: 'Vend2', 
+                                                    data: defaultdata1,
+                                                    backgroundColor: color,
+                                                     }]
+                                            },
+                                            options: {
+                                                        title:
+                                                        {
+                                                        display:true,
+                                                        text:'Quantity V2',
+                                                        fontSize:15,
+                                                        fontColor:'white'
+                                                        },
+                                                        legend:
+                                                        {
+                                                            display:false
+                                                        },
+                                                        scales:  {
+                                                                    yAxes: [{
+                                                                        ticks: {
+                                                                            beginAtZero: true,
+                                                                            fontColor: 'white'
+                                                                                }
+                                                                            }],
+                                                                    xAxes: [{
+                                                                        ticks: {
+                                                                            fontColor: 'white'
+                                                                               }
+                                                                             }]
+                                                                        },
+                                                                responsive:true,
+                                                                maintainAspectRation:false
+
+                                                        }
+                                                    });
+
+                                        },
+                                        error: function(error_data){
+                                        console.log("error")
+                                        console.log(error_data)
+                                        }
+                                    })
+
+                                    </script>
+
+                                    <canvas id="myChart1" width="150" height="100"></canvas>
+
+                                </div>
+                            </div>
+                            <div class="box7">
+                                <div class="container2" >
+                                   
+                                   <script>
+                                          var endpoint='{% url 'apidata'%}'
+                                          var label=[]
+                                          var defaultdata = []
+                                          var line = []
+                                          $.ajax({
+                                              method: "GET",
+                                              url: endpoint,
+                                              success: function(data){
+                                                function color() {
+                                                         var letters = '0123456789ABCDEF'.split('');
+                                                         var color = '#';
+                                                         for (var i = 0; i < 6; i++ ) {
+                                                         color += letters[Math.floor(Math.random() * 16)];
+                                                         }
+                                                         return color;
+                                                         }
+                                                label = data.labels
+                                                defaultdata = data.default
+                                                line = data.line
+                                                var ctx = document.getElementById('myChart').getContext('2d');
+                                                var myChart = new Chart(ctx, {
+                                                    type: 'bar',
+                                                    data: {
+                                                        labels: label,
+                                                        datasets: [{
+                                                            label: 'Vend1',
+                                                            data: defaultdata,
+                                                            backgroundColor: color,
+                                                            borderWidth:2,
+                                                     }]
+                                                        
+                                                    },
+                                                    options: {
+                                                                title:
+                                                                {
+                                                                display:true,
+                                                                text:'Quantity V1',
+                                                                fontSize:15,
+                                                                fontColor:'white'
+                                                                },
+                                                                legend:
+                                                                {
+                                                                    display:false
+                                                                },
+                                                                scales: {
+                                                                    yAxes: [{
+                                                                        ticks: {
+                                                                            beginAtZero: true,
+                                                                            fontColor: 'white'
+                                                                                }
+                                                                            }],
+                                                                    xAxes: [{
+                                                                        ticks: {
+                                                                            fontColor: 'white'
+                                                                               }
+                                                                             }]
+                                                                        },
+                                                                responsive:true,
+                                                                maintainAspectRation:false
+                                            
+                                                              }
+                                                            });
+ 
+                                              },
+                                              error: function(error_data){
+                                                console.log("error")
+                                                console.log(error_data)
+                                              }
+                                          })
+
+                                          </script>
+
+                                          <canvas id="myChart" width="150" height="100"></canvas>
+
+                                </div>
+                            </div>
+                            <div class="box10">VEND1
+                                <table class="content-table table-sortable1">
+                                    <thead>
+                                      <tr>
+                                        <th>ID</th>
+                                        <th>ITEM</th>
+                                        <th>QUANTITY</th>
+                                        <th>PRICE/UNIT</th>
+                                      </tr>
+                                    </thead>
+                                    
+                                     <tbody>
+                                        {% for vend in vend1.all%}
+                                        <tr>
+                                        <td>{{vend.tagid}}</td>
+                                        <td>{{vend.item}}</td>
+                                        <td>{{vend.quantity}}</td>
+                                        <td>{{vend.price}}
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="{% url "update" vend.id%}" style="color:#FFFFFF"><i class="fas fa-edit"></i></a>
+                                        &nbsp;
+                                        <a href ="{% url "delete" vend.id%}" style="color:#FFFFFF"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                </table> 
+                                <script src="static/js/tablesort2.js"></script>
+                            </div>
+
+                            <div class="box11">VEND2
+                                <table class="content-table table-sortable1">
+                                    <thead>
+                                      <tr>
+                                        <th>ID</th>
+                                        <th>ITEM</th>
+                                        <th>QUANTITY</th>
+                                        <th>PRICE/UNIT</th>
+                                      </tr>
+                                    </thead>
+                                    
+                                     <tbody>
+                                        {% for vend in vend2.all%}
+                                        <tr>
+                                        <td>{{vend.tagid}}</td>
+                                        <td>{{vend.item}}</td>
+                                        <td>{{vend.quantity}}</td>
+                                        <td>{{vend.price}}
+                                        &nbsp;
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="{% url "update" vend.id%}" style="color:#FFFFFF"><i class="fas fa-edit"></i></a>
+                                        &nbsp;
+                                        <a href ="{% url "delete" vend.id%}" style="color:#FFFFFF"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                </table> 
+                                <script src="static/js/tablesort1.js"></script>
+                            </div>
+
+
+                            <div class="box9">
+                            <div class="container3" >
+                                   
+                                   <script>
+                                          var endpoint='{% url 'apidata1'%}'
+                                          var price=[]
+                                          var vend = []
+                                          $.ajax({
+                                              method: "GET",
+                                              url: endpoint,
+                                              success: function(data){
+                                                  function color() {
+                                                         var letters = '0123456789ABCDEF'.split('');
+                                                         var color = '#';
+                                                         for (var i = 0; i < 6; i++ ) {
+                                                         color += letters[Math.floor(Math.random() * 16)];
+                                                         }
+                                                         return color;
+                                                         }
+                                                price = data.totalprice
+                                                vend = data.vend
+                                                var ctx = document.getElementById('myChart2').getContext('2d');
+                                                var myChart2 = new Chart(ctx, {
+                                                    type: 'bar',
+                                                    data: {
+                                                        labels: vend,
+                                                        datasets: [{
+                                                            label: 'Salesprice',    
+                                                            data: price,
+                                                            backgroundColor:color ,
+                                                            borderWidth:2
+                                                        }
+                                                        ]
+                                                        
+                                                    },
+                                                    options: {
+                                                                title:
+                                                                {
+                                                                display:true,
+                                                                text:'Total Sales',
+                                                                fontSize:15,
+                                                                fontColor:'white'
+                                                                },
+                                                                
+                                                                legend:
+                                                                {
+                                                                    display:false
+                                                                },
+                                                                scales: {
+                                                                    yAxes: [{
+                                                                        ticks: {
+                                                                            beginAtZero: true,
+                                                                            fontColor:'white'
+                                                                                }
+                                                                            }],
+                                                                    xAxes: [{
+                                                                        ticks: {
+                                                                            fontColor: 'white'
+                                                                               }
+                                                                             }]
+                                                                        },
+                                                                responsive:true,
+                                                                maintainAspectRation:false
+                                            
+                                                              }
+                                                            });
+ 
+                                              },
+                                              error: function(error_data){
+                                                console.log("error")
+                                                console.log(error_data)
+                                              }
+                                          })
+
+                                          </script>
+
+                                          <canvas id="myChart2" width="150" height="100"></canvas>
+
+                                </div>
+                            
+                            </div>
+                            <div class="box11"></div> 
+                            
+                    </div>
+                        <div class="parabot"><p>Digital</p></div>
+                        
+                    </div>
+
+</div>
+
+{% endblock  %}           
